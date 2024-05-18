@@ -33,7 +33,8 @@ public class Person {
     @JsonIgnore
     public List<Outcome> outcomes;
 
-    public Person(String userName, String userPassword, String userRole) {
+    public Person(int userId, String userName, String userPassword, String userRole) {
+        this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userRole = userRole;
