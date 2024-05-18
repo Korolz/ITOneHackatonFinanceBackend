@@ -1,11 +1,12 @@
 package me.korolz.itonerestapifinance.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Income")
+@Table(name = "income")
 @Getter
 @Setter
 public class Income {
@@ -15,11 +16,12 @@ public class Income {
 
     @Column(name = "amount")
     public double amount;
-    @Column(name = "userBankName")
+    @Column(name = "user_bank_name")
     public String userBankName;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonIgnore
     public Person person;
 
     public Income() {}

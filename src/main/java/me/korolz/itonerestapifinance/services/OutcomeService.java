@@ -1,8 +1,10 @@
 package me.korolz.itonerestapifinance.services;
 
 import me.korolz.itonerestapifinance.models.Income;
+import me.korolz.itonerestapifinance.models.Outcome;
 import me.korolz.itonerestapifinance.models.Person;
 import me.korolz.itonerestapifinance.repositories.IncomeRepository;
+import me.korolz.itonerestapifinance.repositories.OutcomeRepository;
 import me.korolz.itonerestapifinance.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,28 +14,29 @@ import java.util.List;
 
 @Service
 @Transactional
-public class IncomeService {
+public class OutcomeService {
 
-    private final IncomeRepository incomeRepository;
+    private final OutcomeRepository outcomeRepository;
     private final PeopleRepository peopleRepository;
 
     @Autowired
-    public IncomeService(IncomeRepository incomeRepository, PeopleRepository peopleRepository) {
-        this.incomeRepository = incomeRepository;
+    public OutcomeService(OutcomeRepository outcomeRepository, PeopleRepository peopleRepository) {
+        this.outcomeRepository = outcomeRepository;
         this.peopleRepository = peopleRepository;
     }
 
-    public List<Income> findIncomesByUserId(int userId) {
+    public List<Outcome> findOutcomesByUserId(int userId) {
         Person person = peopleRepository.findByUserId(userId);
-        return incomeRepository.findIncomesByPerson(person);
+        return outcomeRepository.findOutcomesByPerson(person);
     }
 
-    public double calculateTotalIncomes(int userId) {
-        List<Income> incomes = findIncomesByUserId(userId);
+    public double calculateTotalOutcomes(int userId){
+        List<Outcome> outcomes = findOutcomesByUserId(userId);
         double total = 0;
-        for(Income income : incomes) {
-            total+=income.getAmount();
+        for(Outcome outcome : outcomes) {
+            total+=outcome.getAmount();
         }
         return total;
     }
 }
+

@@ -1,33 +1,36 @@
 package me.korolz.itonerestapifinance.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 @Getter
 @Setter
 public class Person {
     @Id
-    @Column(name = "userId")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int userId;
 
-    @Column(name = "userName")
+    @Column(name = "user_name")
     public String userName;
 
-    @Column(name = "userPassword")
+    @Column(name = "user_password")
     public String userPassword;
 
-    @Column(name = "userRole")
+    @Column(name = "user_role")
     public String userRole;
 
     @OneToMany
+    @JsonIgnore
     public List<Income> incomes;
 
     @OneToMany
+    @JsonIgnore
     public List<Outcome> outcomes;
 
     public Person(String userName, String userPassword, String userRole) {
