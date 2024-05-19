@@ -53,6 +53,16 @@ public class PersonController {
         return incomes - outcomes;
     }
 
+    @GetMapping("/{id}/dream")
+    public String getPersonDream(@PathVariable("id") int id) {
+        double initial = getPersonDelta(id);
+        double stavka = .16;
+        double tenYearsDream = initial*Math.pow((1+stavka), 10);
+        double twentyYearsDream = initial*Math.pow((1+stavka), 20);
+        double thirtyYearsDream = initial*Math.pow((1+stavka), 30);
+        return String.format("Money after \nTen years of invest: %f\nTwenty years: %f\nThirty years: %f", tenYearsDream, twentyYearsDream,thirtyYearsDream);
+    }
+
     @PostMapping("/create")
     public boolean createPerson(@RequestBody Person person) {
         try{

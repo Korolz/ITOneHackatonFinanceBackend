@@ -50,18 +50,15 @@ public class PeopleService implements UserDetailsService {
 
     public void addUser(Person user) throws Exception
     {
-        Person userFromDb = peopleRepository.findByUserName(user.getUserName());
-        if (userFromDb != null)
-        {
-            throw new Exception("user exists");
-        }
-        user.setUserRole(Collections.singleton(Role.SINGLE_USER));
-        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+//        Person userFromDb = peopleRepository.findByUserName(user.getUserName());
+//        if (userFromDb != null)
+//        {
+//            throw new Exception("user exists");
+//        }
+//        user.setUserRole(Collections.singleton(Role.SINGLE_USER));
+//        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+//        System.out.println(user);
         peopleRepository.save(user);
-    }
-
-    public Person save(Person person){
-        return peopleRepository.save(person);
     }
 
     public Person findByUserName(String username){
