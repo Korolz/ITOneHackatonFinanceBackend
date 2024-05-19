@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -13,7 +15,7 @@ import java.util.List;
 public class Person {
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int userId;
 
     @Column(name = "user_name")
@@ -22,8 +24,10 @@ public class Person {
     @Column(name = "user_password")
     public String userPassword;
 
-    @Column(name = "user_role")
-    public String userRole;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "users", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    public Set<Role> userRole;
 
     @OneToMany
     @JsonIgnore
@@ -33,7 +37,7 @@ public class Person {
     @JsonIgnore
     public List<Outcome> outcomes;
 
-    public Person(int userId, String userName, String userPassword, String userRole) {
+    public Person(int userId, String userName, String userPassword, Set<Role> userRole) {
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;

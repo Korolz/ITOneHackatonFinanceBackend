@@ -52,4 +52,16 @@ public class PersonController {
         double outcomes = outcomeService.calculateTotalOutcomes(id);
         return incomes - outcomes;
     }
+
+    @PostMapping("/create")
+    public boolean createPerson(@RequestBody Person person) {
+        try{
+            peopleService.addUser(person);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
